@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stm-solver"
+version = "0.1.0"
+description = "BESO topology optimization for strut-and-tie model generation"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "matplotlib>=3.4.0",
+    "tomli>=1.1.0; python_version < '3.11'",
+    "tomli-w>=1.0.0",
+]
+
+[project.optional-dependencies]
+notebook = ["jupyter>=1.0.0", "nbformat>=5.0.0", "openpyxl>=3.1.0", "pandas>=1.5.0", "tqdm>=4.60.0"]
+tables = ["openpyxl>=3.1.0", "pandas>=1.5.0"]
+dev = ["pytest>=7.0", "ruff>=0.1.0"]
+
+[tool.setuptools.packages.find]
+include = ["stm_solver*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["stm_solver"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

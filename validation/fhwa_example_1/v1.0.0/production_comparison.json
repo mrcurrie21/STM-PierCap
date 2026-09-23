@@ -1,0 +1,198 @@
+{
+  "overall_status": "PASS WITH DOCUMENTED GAP",
+  "production_notebook": "fhwa_example_1_production_validation.ipynb",
+  "production_html": "fhwa_example_1_production_validation.html",
+  "source_pdf": "FHWA-NHI-13-0126_Strut-and-Tie_Modeling_Design_Examples.pdf",
+  "comparisons": [
+    {
+      "quantity": "Left reaction (kip)",
+      "source": "Fig. 1-8",
+      "published": 600.0,
+      "computed": 600.0,
+      "difference": 0.0,
+      "tolerance": "+/-1",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Right reaction (kip)",
+      "source": "Fig. 1-8",
+      "published": 600.0,
+      "computed": 600.0,
+      "difference": 0.0,
+      "tolerance": "+/-1",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Direct diagonal compression (kip)",
+      "source": "Table 1-1, CF",
+      "published": 1177.0,
+      "computed": 1176.926611985641,
+      "difference": -0.07338801435889764,
+      "tolerance": "+/-1",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Direct chord force (kip)",
+      "source": "Table 1-1, BC/EF",
+      "published": 1013.0,
+      "computed": 1012.5,
+      "difference": -0.5,
+      "tolerance": "+/-1",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Bottom tie required area (in2)",
+      "source": "Design Step 7",
+      "published": 18.76,
+      "computed": 18.75,
+      "difference": -0.010000000000001563,
+      "tolerance": "+/-0.02",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "16-No.10 provided area (in2)",
+      "source": "Fig. 1-4",
+      "published": 20.32,
+      "computed": 20.32,
+      "difference": 0.0,
+      "tolerance": "+/-0.01",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "16-No.10 factored tie capacity (kip)",
+      "source": "Design Step 7",
+      "published": 1097.0,
+      "computed": 1097.28,
+      "difference": 0.2799999999999727,
+      "tolerance": "+/-1",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Final CCC back-face capacity (kip)",
+      "source": "Design Step 8",
+      "published": 856.0,
+      "computed": 856.8,
+      "difference": 0.7999999999999545,
+      "tolerance": "+/-1",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Final CCC back-face D/C",
+      "source": "Design Step 8",
+      "published": 1.1834,
+      "computed": 1.1817226890756303,
+      "difference": -0.0016773109243697348,
+      "tolerance": "+/-0.005",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Final CCC strut-interface width (in)",
+      "source": "Design Step 8",
+      "published": 12.3,
+      "computed": 12.2989826660293,
+      "difference": -0.0010173339707009177,
+      "tolerance": "+/-0.05",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Final CCC strut capacity (kip)",
+      "source": "Design Step 8",
+      "published": 1239.0,
+      "computed": 1239.737452735753,
+      "difference": 0.7374527357530951,
+      "tolerance": "+/-2",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Final CCC strut D/C",
+      "source": "Design Step 8",
+      "published": 0.95,
+      "computed": 0.9493353688625716,
+      "difference": -0.0006646311374283176,
+      "tolerance": "+/-0.005",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Vertical crack-control area per spacing (in2)",
+      "source": "Design Step 9",
+      "published": 1.24,
+      "computed": 1.24,
+      "difference": 0.0,
+      "tolerance": "+/-0.001",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Vertical crack-control spacing (in)",
+      "source": "Design Step 9",
+      "published": 8.0,
+      "computed": 8.0,
+      "difference": 0.0,
+      "tolerance": "+/-0.001",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Horizontal crack-control area per foot (in2)",
+      "source": "Design Step 9",
+      "published": 1.76,
+      "computed": 1.76,
+      "difference": 0.0,
+      "tolerance": "+/-0.001",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Horizontal crack-control spacing (in)",
+      "source": "Design Step 9",
+      "published": 12.0,
+      "computed": 12.0,
+      "difference": 0.0,
+      "tolerance": "+/-0.001",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "quantity": "Hook development required (in)",
+      "source": "Design Step 10",
+      "published": 19.9,
+      "computed": 17.242091752452776,
+      "difference": -2.6579082475472227,
+      "tolerance": "QUALITATIVE",
+      "status": "BASIS DIFFERENCE",
+      "note": "Production notebook applies AREMA development provisions; FHWA applies AASHTO LRFD."
+    },
+    {
+      "quantity": "Hook anchorage available (in)",
+      "source": "Fig. 1-21",
+      "published": 25.4,
+      "computed": 24.177500000000002,
+      "difference": -1.2224999999999966,
+      "tolerance": "QUALITATIVE",
+      "status": "PASS",
+      "note": "Different bar-end convention; both calculated lengths exceed their governing requirement."
+    },
+    {
+      "quantity": "Top compression-chord reinforcement",
+      "source": "Design Step 8",
+      "published": "6-No.8 (4.74 in2)",
+      "computed": "Concrete-only NG; 856.8 < 1012.5 kip",
+      "difference": "-",
+      "tolerance": "FUNCTIONAL",
+      "status": "GAP",
+      "note": "Production identifies the same deficiency but does not accept/design supplemental compression-strut steel."
+    }
+  ]
+}

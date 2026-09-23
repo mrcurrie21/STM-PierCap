@@ -1,0 +1,88 @@
+{
+  "package_id": "fhwa_example_1",
+  "package_version": "1.0.0",
+  "generated_utc": "2026-09-23T18:51:25.389317+00:00",
+  "repository_root": "C:\\Users\\mcurrie\\py\\crouch\\pier_cap_stm",
+  "benchmark_case": "example_1_simply_supported_deep_beam",
+  "overall_status": "PASS",
+  "candidate_count": 16,
+  "equilibrium_residual_kip": 0.0,
+  "checks": {
+    "equilibrium": true,
+    "vertical_reactions": true,
+    "diagonal_compression": true,
+    "chord_forces": true
+  },
+  "comparisons": [
+    {
+      "quantity": "Left vertical reaction (kip)",
+      "source_pages": [
+        27,
+        36,
+        37
+      ],
+      "published": 600.0,
+      "computed": 600.0,
+      "computed_over_published": 1.0,
+      "difference": 0.0,
+      "tolerance": 1.0,
+      "status": "PASS"
+    },
+    {
+      "quantity": "Right vertical reaction (kip)",
+      "source_pages": [
+        27,
+        36,
+        37
+      ],
+      "published": 600.0,
+      "computed": 600.0,
+      "computed_over_published": 1.0,
+      "difference": 0.0,
+      "tolerance": 1.0,
+      "status": "PASS"
+    },
+    {
+      "quantity": "Primary diagonal compression (kip)",
+      "source_pages": [
+        27,
+        36,
+        37
+      ],
+      "published": 1176.926612,
+      "computed": 1176.926611985641,
+      "computed_over_published": 0.9999999999877996,
+      "difference": -1.4358874977915548e-08,
+      "tolerance": 1.0,
+      "status": "PASS"
+    },
+    {
+      "quantity": "Primary chord force (kip)",
+      "source_pages": [
+        27,
+        36,
+        37
+      ],
+      "published": 1012.5,
+      "computed": 1012.5,
+      "computed_over_published": 1.0,
+      "difference": 0.0,
+      "tolerance": 1.0,
+      "status": "PASS"
+    },
+    {
+      "quantity": "Equilibrium residual (kip)",
+      "source_pages": [
+        27,
+        36,
+        37
+      ],
+      "published": 0.0,
+      "computed": 0.0,
+      "computed_over_published": null,
+      "difference": 0.0,
+      "tolerance": 1e-07,
+      "status": "PASS"
+    }
+  ]
+}

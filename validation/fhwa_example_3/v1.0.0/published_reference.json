@@ -1,0 +1,411 @@
+{
+  "id": "example_3_inverted_tee_straddle_bent",
+  "title": "Design Example 3 - Inverted-Tee Moment Frame Straddle Bent Cap",
+  "benchmark_type": "prescribed_ground_structure",
+  "source_pages": [
+    99,
+    100,
+    102,
+    105,
+    106,
+    108,
+    109,
+    111
+  ],
+  "notes": "First global-STM benchmark slice. Centerline coordinates are reconstructed from Figure 3-10; published column-interface member forces are imposed as recommended by FHWA. Local ledge models remain separate.",
+  "relative_force_tolerance": 0.22,
+  "fixed_force_relative_tolerance": 0.03,
+  "check_candidate_generation": true,
+  "generation_min_angle": 25.0,
+  "generation_max_angle": 90.0,
+  "generation_force_tolerance": 0.001,
+  "generation_diagonal_webs_compression_only": true,
+  "minimum_topology_recall": 1.0,
+  "minimum_topology_precision": 1.0,
+  "left_interface_shear_kip": 268.9,
+  "left_axial_compression_kip": 580.6,
+  "left_interface_moment_kip_ft": 1873.1,
+  "right_interface_shear_kip": -268.9,
+  "right_axial_compression_kip": 973.0,
+  "right_interface_moment_kip_ft": 2163.7,
+  "nodes": [
+    {
+      "id": "A",
+      "role": "top",
+      "x": 0.57,
+      "y": 5.62
+    },
+    {
+      "id": "B",
+      "role": "top",
+      "x": 12.83,
+      "y": 5.62
+    },
+    {
+      "id": "C",
+      "role": "top",
+      "x": 21.45,
+      "y": 5.62
+    },
+    {
+      "id": "D",
+      "role": "top",
+      "x": 29.87,
+      "y": 5.62
+    },
+    {
+      "id": "E",
+      "role": "top",
+      "x": 38.29,
+      "y": 5.62
+    },
+    {
+      "id": "F",
+      "role": "top",
+      "x": 46.93,
+      "y": 5.62
+    },
+    {
+      "id": "G",
+      "role": "lower",
+      "x": 4.21,
+      "y": 0.5
+    },
+    {
+      "id": "H",
+      "role": "lower",
+      "x": 12.83,
+      "y": 0.5
+    },
+    {
+      "id": "I",
+      "role": "lower",
+      "x": 21.45,
+      "y": 0.5
+    },
+    {
+      "id": "J",
+      "role": "lower",
+      "x": 29.87,
+      "y": 0.5
+    },
+    {
+      "id": "K",
+      "role": "lower",
+      "x": 38.29,
+      "y": 0.5
+    },
+    {
+      "id": "L",
+      "role": "lower",
+      "x": 43.39,
+      "y": 0.5
+    },
+    {
+      "id": "A_prime",
+      "role": "boundary",
+      "x": 0.57,
+      "y": -5.0
+    },
+    {
+      "id": "G_prime",
+      "role": "boundary",
+      "x": 4.21,
+      "y": -5.0
+    },
+    {
+      "id": "L_prime",
+      "role": "boundary",
+      "x": 43.39,
+      "y": -5.0
+    },
+    {
+      "id": "F_prime",
+      "role": "boundary",
+      "x": 46.93,
+      "y": -5.0
+    }
+  ],
+  "members": [
+    {
+      "id": "AB",
+      "i": "A",
+      "j": "B",
+      "expected_force": 464.3
+    },
+    {
+      "id": "BC",
+      "i": "B",
+      "j": "C",
+      "expected_force": -463.9
+    },
+    {
+      "id": "CD",
+      "i": "C",
+      "j": "D",
+      "expected_force": -1297.0
+    },
+    {
+      "id": "DE",
+      "i": "D",
+      "j": "E",
+      "expected_force": -505.6
+    },
+    {
+      "id": "EF",
+      "i": "E",
+      "j": "F",
+      "expected_force": 428.9
+    },
+    {
+      "id": "GH",
+      "i": "G",
+      "j": "H",
+      "expected_force": 195.0
+    },
+    {
+      "id": "HI",
+      "i": "H",
+      "j": "I",
+      "expected_force": 1063.9
+    },
+    {
+      "id": "IJ",
+      "i": "I",
+      "j": "J",
+      "expected_force": 1063.9
+    },
+    {
+      "id": "JK",
+      "i": "J",
+      "j": "K",
+      "expected_force": 1028.1
+    },
+    {
+      "id": "KL",
+      "i": "K",
+      "j": "L",
+      "expected_force": 236.7
+    },
+    {
+      "id": "AA_prime",
+      "i": "A",
+      "j": "A_prime",
+      "expected_force": 653.9,
+      "fix_expected_force": true
+    },
+    {
+      "id": "A_prime_G",
+      "i": "A_prime",
+      "j": "G",
+      "expected_force": -457.3,
+      "fix_expected_force": true
+    },
+    {
+      "id": "A_prime_G_prime",
+      "i": "A_prime",
+      "j": "G_prime",
+      "expected_force": 268.9,
+      "fix_expected_force": true
+    },
+    {
+      "id": "GG_prime",
+      "i": "G",
+      "j": "G_prime",
+      "expected_force": -864.7,
+      "fix_expected_force": true
+    },
+    {
+      "id": "BH",
+      "i": "B",
+      "j": "H",
+      "expected_force": 532.3
+    },
+    {
+      "id": "CI",
+      "i": "C",
+      "j": "I",
+      "expected_force": 517.4
+    },
+    {
+      "id": "DJ",
+      "i": "D",
+      "j": "J",
+      "expected_force": 460.5
+    },
+    {
+      "id": "EK",
+      "i": "E",
+      "j": "K",
+      "expected_force": 930.5
+    },
+    {
+      "id": "LL_prime",
+      "i": "L",
+      "j": "L_prime",
+      "expected_force": -1213.8,
+      "fix_expected_force": true
+    },
+    {
+      "id": "L_prime_F_prime",
+      "i": "L_prime",
+      "j": "F_prime",
+      "expected_force": 268.9,
+      "fix_expected_force": true
+    },
+    {
+      "id": "F_prime_L",
+      "i": "F_prime",
+      "j": "L",
+      "expected_force": -465.6,
+      "fix_expected_force": true
+    },
+    {
+      "id": "FF_prime",
+      "i": "F",
+      "j": "F_prime",
+      "expected_force": 620.8,
+      "fix_expected_force": true
+    },
+    {
+      "id": "AG",
+      "i": "A",
+      "j": "G",
+      "expected_force": -802.0
+    },
+    {
+      "id": "GB",
+      "i": "G",
+      "j": "B",
+      "expected_force": -1078.1
+    },
+    {
+      "id": "CH",
+      "i": "C",
+      "j": "H",
+      "expected_force": -1010.5
+    },
+    {
+      "id": "CJ",
+      "i": "C",
+      "j": "J",
+      "expected_force": -41.8
+    },
+    {
+      "id": "DK",
+      "i": "D",
+      "j": "K",
+      "expected_force": -926.2
+    },
+    {
+      "id": "EL",
+      "i": "E",
+      "j": "L",
+      "expected_force": -1330.5
+    },
+    {
+      "id": "FL",
+      "i": "F",
+      "j": "L",
+      "expected_force": -754.6
+    }
+  ],
+  "nodal_loads": [
+    {
+      "node": "B",
+      "Py": -16.2
+    },
+    {
+      "node": "C",
+      "Py": -20.4
+    },
+    {
+      "node": "D",
+      "Py": -20.7
+    },
+    {
+      "node": "E",
+      "Py": -16.5
+    },
+    {
+      "node": "G",
+      "Py": -32.2
+    },
+    {
+      "node": "H",
+      "Py": -16.2
+    },
+    {
+      "node": "I",
+      "Py": -517.4
+    },
+    {
+      "node": "J",
+      "Py": -438.8
+    },
+    {
+      "node": "K",
+      "Py": -449.3
+    },
+    {
+      "node": "L",
+      "Py": -26.0
+    }
+  ],
+  "boundaries": [
+    {
+      "node": "A_prime",
+      "dofs": [
+        "x",
+        "y"
+      ],
+      "connect_group": "top",
+      "connect_index": 0,
+      "additional_connections": [
+        {
+          "connect_group": "lower",
+          "connect_index": 0
+        }
+      ],
+      "connect_boundary_indices": [
+        1
+      ]
+    },
+    {
+      "node": "G_prime",
+      "dofs": [
+        "x",
+        "y"
+      ],
+      "connect_group": "lower",
+      "connect_index": 0
+    },
+    {
+      "node": "L_prime",
+      "dofs": [
+        "x",
+        "y"
+      ],
+      "connect_group": "lower",
+      "connect_index": 5,
+      "connect_boundary_indices": [
+        3
+      ]
+    },
+    {
+      "node": "F_prime",
+      "dofs": [
+        "x",
+        "y"
+      ],
+      "connect_group": "top",
+      "connect_index": 5,
+      "additional_connections": [
+        {
+          "connect_group": "lower",
+          "connect_index": 5
+        }
+      ]
+    }
+  ]
+}

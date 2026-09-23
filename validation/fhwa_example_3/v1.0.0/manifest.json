@@ -1,0 +1,25 @@
+{
+  "package_id": "fhwa_example_3",
+  "package_version": "1.0.0",
+  "created_date": "2026-09-23",
+  "status": "production_notebook_validation_pass",
+  "source": {
+    "agency": "Federal Highway Administration / National Highway Institute",
+    "course": "FHWA-NHI-13-0126",
+    "title": "Strut-and-Tie Modeling (STM) for Concrete Structures",
+    "url": "https://www.govinfo.gov/content/pkg/GOVPUB-TD2-PURL-gpo160238/pdf/GOVPUB-TD2-PURL-gpo160238.pdf",
+    "local_file": "FHWA-NHI-13-0126_Strut-and-Tie_Modeling_Design_Examples.pdf",
+    "bytes": 3048582,
+    "pages": 196,
+    "sha256": "BE2F93DD890FC1CDD4128109A32ACECDD1878313E1FAE05F8E27F9AF447C7A8D"
+  },
+  "example": {
+    "id": "example_3_inverted_tee_straddle_bent",
+    "pdf_pages_global_model": [99, 100, 102, 105, 106, 108, 109, 110, 111],
+    "pdf_pages_nodal_examples": [127, 128, 129, 130, 131, 132, 133, 134, 135]
+  },
+  "production_notebook_sha256_before_work": "BC7C459E3B9B0282FD5173F4398A8183042E19721DC5259B24EEB1B7B2A14811",
+  "production_notebook_sha256_after_work": "EE85C1D6A814F1F57986E3F37CD85501095B436EB6A126EB876EDE838C31A409",
+  "executed_validation_notebook_sha256": "CBA0B35E4ED6D919478FCD8B6C739329653BDDF614376E27BF5A85516F5D5FEF",
+  "validation_html_sha256": "CAF837E7C5887676769D92D9469189C8404338AC0669704F133F5833D5C750D0"
+}

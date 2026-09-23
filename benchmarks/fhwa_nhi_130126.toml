@@ -1,0 +1,627 @@
+suite_id = "fhwa_nhi_130126"
+title = "FHWA-NHI-130126 Strut-and-Tie Modeling Design Examples"
+source_url = "https://www.govinfo.gov/content/pkg/GOVPUB-TD2-PURL-gpo160238/pdf/GOVPUB-TD2-PURL-gpo160238.pdf"
+
+[[cases]]
+id = "example_1_simply_supported_deep_beam"
+title = "Design Example 1 - Simply-Supported Deep Beam"
+status = "active"
+benchmark_type = "pier_cap_generation"
+source_pages = [27, 36, 37]
+design_source_pages = [37, 38, 40, 43, 45, 46, 48, 49, 50, 51, 54, 55, 57, 58]
+notes = "Production benchmark uses the symmetric direct-strut model that FHWA Table 1-3 identifies as a valid, more efficient alternative to the instructional two-panel model on the left side."
+top_tie_y = 69.0
+bottom_tie_y = 5.0
+min_angle = 25.0
+max_angle = 75.0
+expected_vertical_reactions = [600.0, 600.0]
+expected_diagonal_compression = 1176.926612
+expected_chord_force = 1012.5
+force_tolerance = 1.0
+
+[cases.design_reference]
+fy_ksi = 60.0
+fc_ksi = 5.0
+phi_tie = 0.90
+phi_compression = 0.70
+member_width = 48.0
+bottom_tie_force = 1013.0
+bottom_tie_bar_size = 10
+bottom_tie_bar_count = 16
+bottom_tie_required_area = 18.76
+bottom_tie_factored_capacity = 1097.0
+vertical_tie_force = 600.0
+vertical_tie_required_area = 11.11
+cct_bearing_width = 12.0
+cct_back_face_depth = 10.0
+strut_angle_degrees = 30.7
+cct_interface_width = 14.7
+ccc_final_bearing_width = 14.0
+ccc_back_face_depth = 6.0
+ccc_final_interface_width = 12.3
+cct_bearing_demand = 600.0
+cct_bearing_area = 576.0
+cct_bearing_factor = 0.70
+cct_bearing_capacity = 1411.0
+cct_bearing_dc = 0.4252
+cct_strut_demand = 1177.0
+cct_strut_area = 706.0
+cct_strut_factor = 0.60
+cct_strut_capacity = 1482.0
+cct_strut_dc = 0.7942
+ccc_bearing_demand = 600.0
+ccc_bearing_area = 576.0
+ccc_bearing_factor = 0.85
+ccc_bearing_capacity = 1713.0
+ccc_bearing_dc = 0.3503
+ccc_back_demand = 1013.0
+ccc_back_area = 288.0
+ccc_back_factor = 0.85
+ccc_back_capacity = 856.0
+ccc_back_dc = 1.1834
+ccc_initial_strut_demand = 1177.0
+ccc_initial_strut_area = 542.0
+ccc_initial_strut_factor = 0.60
+ccc_initial_strut_capacity = 1138.0
+ccc_initial_strut_dc = 1.0343
+ccc_final_strut_demand = 1177.0
+ccc_final_strut_area = 590.0
+ccc_final_strut_factor = 0.60
+ccc_final_strut_capacity = 1239.0
+ccc_final_strut_dc = 0.9500
+top_strut_steel_required = 4.67
+top_strut_steel_bar_size = 8
+top_strut_steel_bar_count = 6
+top_strut_steel_provided = 4.74
+hook_basic_length = 21.6
+hook_required_length = 19.9
+hook_rounded_length = 20.0
+hook_available_length = 25.4
+hook_end_overhang = 5.0
+hook_clear_cover = 2.0
+horizontal_crack_bar_size = 6
+horizontal_crack_legs = 4
+horizontal_crack_spacing = 12.0
+vertical_crack_bar_size = 5
+vertical_crack_legs = 4
+vertical_crack_spacing = 8.0
+
+[[cases.loads]]
+x = 120.0
+y = 69.0
+Px = 0.0
+Py = -600.0
+
+[[cases.loads]]
+x = 204.0
+y = 69.0
+Px = 0.0
+Py = -600.0
+
+[[cases.piles]]
+x = 12.0
+y = 5.0
+type = "pin"
+
+[[cases.piles]]
+x = 312.0
+y = 5.0
+type = "roller"
+
+[[cases]]
+id = "example_2_cantilever_bent_cap"
+title = "Design Example 2 - Cantilever Bent Cap"
+status = "active"
+benchmark_type = "prescribed_ground_structure"
+source_pages = [18, 60, 76]
+notes = "Published one-panel topology. Coordinates reconstruct the dimensioned centerlines; comparison tolerance accounts for rounded dimensions and forces in the figure."
+relative_force_tolerance = 0.12
+check_frame_generation = true
+
+[[cases.nodes]]
+id = "A"
+role = "top"
+x = 0.67
+y = 8.465
+
+[[cases.nodes]]
+id = "B"
+role = "top"
+x = 6.97
+y = 8.140
+
+[[cases.nodes]]
+id = "C"
+role = "top"
+x = 22.99
+y = 7.314
+
+[[cases.nodes]]
+id = "D"
+role = "lower"
+x = 7.52
+y = -0.198
+connect_top_indices = [0, 1]
+
+[[cases.nodes]]
+id = "E"
+role = "lower"
+x = 9.69
+y = -0.310
+connect_top_indices = [2]
+
+[[cases.nodes]]
+id = "A_prime"
+role = "boundary"
+x = 0.67
+y = -4.0
+
+[[cases.nodes]]
+id = "D_prime"
+role = "boundary"
+x = 7.52
+y = -4.0
+
+[[cases.nodes]]
+id = "E_prime"
+role = "boundary"
+x = 9.69
+y = -4.0
+
+[[cases.members]]
+id = "AB"
+i = "A"
+j = "B"
+expected_force = 1437.0
+
+[[cases.members]]
+id = "BC"
+i = "B"
+j = "C"
+expected_force = 1573.0
+
+[[cases.members]]
+id = "AD"
+i = "A"
+j = "D"
+expected_force = -2254.0
+
+[[cases.members]]
+id = "BD"
+i = "B"
+j = "D"
+expected_force = -2017.0
+
+[[cases.members]]
+id = "DE"
+i = "D"
+j = "E"
+expected_force = -1570.0
+
+[[cases.members]]
+id = "CE"
+i = "C"
+j = "E"
+expected_force = -1783.0
+
+[[cases.members]]
+id = "AA_prime"
+i = "A"
+j = "A_prime"
+expected_force = 1664.0
+
+[[cases.members]]
+id = "DD_prime"
+i = "D"
+j = "D_prime"
+expected_force = -3751.0
+
+[[cases.members]]
+id = "EE_prime"
+i = "E"
+j = "E_prime"
+expected_force = -845.0
+
+[[cases.nodal_loads]]
+node = "B"
+Px = 0.0
+Py = -2005.0
+
+[[cases.nodal_loads]]
+node = "C"
+Px = 0.0
+Py = -926.0
+
+[[cases.boundaries]]
+node = "A_prime"
+dofs = ["x", "y"]
+connect_group = "top"
+connect_index = 0
+
+[[cases.boundaries]]
+node = "D_prime"
+dofs = ["x", "y"]
+connect_group = "lower"
+connect_index = 0
+
+[[cases.boundaries]]
+node = "E_prime"
+dofs = ["x", "y"]
+connect_group = "lower"
+connect_index = 1
+
+[[cases]]
+id = "example_3_inverted_tee_straddle_bent"
+title = "Design Example 3 - Inverted-Tee Moment Frame Straddle Bent Cap"
+status = "active"
+benchmark_type = "prescribed_ground_structure"
+source_pages = [99, 100, 102, 105, 106, 108, 109, 111]
+notes = "First global-STM benchmark slice. Centerline coordinates are reconstructed from Figure 3-10; published column-interface member forces are imposed as recommended by FHWA. Local ledge models remain separate."
+relative_force_tolerance = 0.22
+fixed_force_relative_tolerance = 0.03
+check_candidate_generation = true
+generation_min_angle = 25.0
+generation_max_angle = 90.0
+generation_force_tolerance = 0.001
+generation_diagonal_webs_compression_only = true
+minimum_topology_recall = 1.0
+minimum_topology_precision = 1.0
+left_interface_shear_kip = 268.9
+left_axial_compression_kip = 580.6
+left_interface_moment_kip_ft = 1873.1
+right_interface_shear_kip = -268.9
+right_axial_compression_kip = 973.0
+right_interface_moment_kip_ft = 2163.7
+
+[[cases.nodes]]
+id = "A"
+role = "top"
+x = 0.57
+y = 5.62
+
+[[cases.nodes]]
+id = "B"
+role = "top"
+x = 12.83
+y = 5.62
+
+[[cases.nodes]]
+id = "C"
+role = "top"
+x = 21.45
+y = 5.62
+
+[[cases.nodes]]
+id = "D"
+role = "top"
+x = 29.87
+y = 5.62
+
+[[cases.nodes]]
+id = "E"
+role = "top"
+x = 38.29
+y = 5.62
+
+[[cases.nodes]]
+id = "F"
+role = "top"
+x = 46.93
+y = 5.62
+
+[[cases.nodes]]
+id = "G"
+role = "lower"
+x = 4.21
+y = 0.50
+
+[[cases.nodes]]
+id = "H"
+role = "lower"
+x = 12.83
+y = 0.50
+
+[[cases.nodes]]
+id = "I"
+role = "lower"
+x = 21.45
+y = 0.50
+
+[[cases.nodes]]
+id = "J"
+role = "lower"
+x = 29.87
+y = 0.50
+
+[[cases.nodes]]
+id = "K"
+role = "lower"
+x = 38.29
+y = 0.50
+
+[[cases.nodes]]
+id = "L"
+role = "lower"
+x = 43.39
+y = 0.50
+
+[[cases.nodes]]
+id = "A_prime"
+role = "boundary"
+x = 0.57
+y = -5.00
+
+[[cases.nodes]]
+id = "G_prime"
+role = "boundary"
+x = 4.21
+y = -5.00
+
+[[cases.nodes]]
+id = "L_prime"
+role = "boundary"
+x = 43.39
+y = -5.00
+
+[[cases.nodes]]
+id = "F_prime"
+role = "boundary"
+x = 46.93
+y = -5.00
+
+[[cases.members]]
+id = "AB"
+i = "A"
+j = "B"
+expected_force = 464.3
+
+[[cases.members]]
+id = "BC"
+i = "B"
+j = "C"
+expected_force = -463.9
+
+[[cases.members]]
+id = "CD"
+i = "C"
+j = "D"
+expected_force = -1297.0
+
+[[cases.members]]
+id = "DE"
+i = "D"
+j = "E"
+expected_force = -505.6
+
+[[cases.members]]
+id = "EF"
+i = "E"
+j = "F"
+expected_force = 428.9
+
+[[cases.members]]
+id = "GH"
+i = "G"
+j = "H"
+expected_force = 195.0
+
+[[cases.members]]
+id = "HI"
+i = "H"
+j = "I"
+expected_force = 1063.9
+
+[[cases.members]]
+id = "IJ"
+i = "I"
+j = "J"
+expected_force = 1063.9
+
+[[cases.members]]
+id = "JK"
+i = "J"
+j = "K"
+expected_force = 1028.1
+
+[[cases.members]]
+id = "KL"
+i = "K"
+j = "L"
+expected_force = 236.7
+
+[[cases.members]]
+id = "AA_prime"
+i = "A"
+j = "A_prime"
+expected_force = 653.9
+fix_expected_force = true
+
+[[cases.members]]
+id = "A_prime_G"
+i = "A_prime"
+j = "G"
+expected_force = -457.3
+fix_expected_force = true
+
+[[cases.members]]
+id = "A_prime_G_prime"
+i = "A_prime"
+j = "G_prime"
+expected_force = 268.9
+fix_expected_force = true
+
+[[cases.members]]
+id = "GG_prime"
+i = "G"
+j = "G_prime"
+expected_force = -864.7
+fix_expected_force = true
+
+[[cases.members]]
+id = "BH"
+i = "B"
+j = "H"
+expected_force = 532.3
+
+[[cases.members]]
+id = "CI"
+i = "C"
+j = "I"
+expected_force = 517.4
+
+[[cases.members]]
+id = "DJ"
+i = "D"
+j = "J"
+expected_force = 460.5
+
+[[cases.members]]
+id = "EK"
+i = "E"
+j = "K"
+expected_force = 930.5
+
+[[cases.members]]
+id = "LL_prime"
+i = "L"
+j = "L_prime"
+expected_force = -1213.8
+fix_expected_force = true
+
+[[cases.members]]
+id = "L_prime_F_prime"
+i = "L_prime"
+j = "F_prime"
+expected_force = 268.9
+fix_expected_force = true
+
+[[cases.members]]
+id = "F_prime_L"
+i = "F_prime"
+j = "L"
+expected_force = -465.6
+fix_expected_force = true
+
+[[cases.members]]
+id = "FF_prime"
+i = "F"
+j = "F_prime"
+expected_force = 620.8
+fix_expected_force = true
+
+[[cases.members]]
+id = "AG"
+i = "A"
+j = "G"
+expected_force = -802.0
+
+[[cases.members]]
+id = "GB"
+i = "G"
+j = "B"
+expected_force = -1078.1
+
+[[cases.members]]
+id = "CH"
+i = "C"
+j = "H"
+expected_force = -1010.5
+
+[[cases.members]]
+id = "CJ"
+i = "C"
+j = "J"
+expected_force = -41.8
+
+[[cases.members]]
+id = "DK"
+i = "D"
+j = "K"
+expected_force = -926.2
+
+[[cases.members]]
+id = "EL"
+i = "E"
+j = "L"
+expected_force = -1330.5
+
+[[cases.members]]
+id = "FL"
+i = "F"
+j = "L"
+expected_force = -754.6
+
+[[cases.nodal_loads]]
+node = "B"
+Py = -16.2
+
+[[cases.nodal_loads]]
+node = "C"
+Py = -20.4
+
+[[cases.nodal_loads]]
+node = "D"
+Py = -20.7
+
+[[cases.nodal_loads]]
+node = "E"
+Py = -16.5
+
+[[cases.nodal_loads]]
+node = "G"
+Py = -32.2
+
+[[cases.nodal_loads]]
+node = "H"
+Py = -16.2
+
+[[cases.nodal_loads]]
+node = "I"
+Py = -517.4
+
+[[cases.nodal_loads]]
+node = "J"
+Py = -438.8
+
+[[cases.nodal_loads]]
+node = "K"
+Py = -449.3
+
+[[cases.nodal_loads]]
+node = "L"
+Py = -26.0
+
+[[cases.boundaries]]
+node = "A_prime"
+dofs = ["x", "y"]
+connect_group = "top"
+connect_index = 0
+additional_connections = [{ connect_group = "lower", connect_index = 0 }]
+connect_boundary_indices = [1]
+
+[[cases.boundaries]]
+node = "G_prime"
+dofs = ["x", "y"]
+connect_group = "lower"
+connect_index = 0
+
+[[cases.boundaries]]
+node = "L_prime"
+dofs = ["x", "y"]
+connect_group = "lower"
+connect_index = 5
+connect_boundary_indices = [3]
+
+[[cases.boundaries]]
+node = "F_prime"
+dofs = ["x", "y"]
+connect_group = "top"
+connect_index = 5
+additional_connections = [{ connect_group = "lower", connect_index = 5 }]
+
+[[cases]]
+id = "example_4_drilled_shaft_footing"
+title = "Design Example 4 - Drilled Shaft Footing"
+status = "reference_only"
+source_pages = [22, 155]
+notes = "Three-dimensional benchmark reserved for a later ground-structure extension."
