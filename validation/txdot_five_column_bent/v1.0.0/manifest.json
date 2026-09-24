@@ -1,0 +1,20 @@
+{
+  "validation_id": "txdot_5_5253_01_1_chapter_4_global_stm",
+  "version": "1.0.0",
+  "source": {
+    "title": "Strut-and-Tie Model Design Examples for Bridges",
+    "report": "FHWA/TX-12/5-5253-01-1",
+    "chapter": "Chapter 4, Example 1: Five-Column Bent Cap of a Skewed Bridge",
+    "figure": "Figure 4.10",
+    "local_file": "sources/TxDOT_5-5253-01-1_Strut-and-Tie_Model_Design_Examples.pdf",
+    "sha256": "61415E92FB7BD763EE558257240729B4FC128382F7A50BF7C73814B77975C734"
+  },
+  "production_notebook": {
+    "path": "notebooks/pier_cap_design.ipynb",
+    "sha256_before_validation": "EE85C1D6A814F1F57986E3F37CD85501095B436EB6A126EB876EDE838C31A409",
+    "modified": false
+  },
+  "scope": "Global STM plus eligible non-column tie, bearing, and nodal checks; local subdivided column nodes excluded",
+  "result": "FAIL_REACTION_BASIS",
+  "required_future_capability": "Prescribed support reactions from a compatible continuous-beam or frame analysis"
+}

@@ -1,0 +1,161 @@
+{
+  "source": {
+    "report": "TxDOT 5-5253-01-1, Strut-and-Tie Model Design Examples for Bridges",
+    "chapter": "Chapter 4, Example 1: Five-Column Bent Cap of a Skewed Bridge",
+    "global_figure": "Figure 4.10"
+  },
+  "scope": {
+    "included": [
+      "production-notebook global solve",
+      "published global-joint equilibrium spot checks",
+      "published longitudinal and vertical tie calculations",
+      "critical non-column girder-bearing calculation"
+    ],
+    "excluded": [
+      "local subdivided column nodes EE, JJ, and NN",
+      "non-column nodes P, Q, R, and V where published strut angles depend on a subdivided column node",
+      "strut-interface checks that use those revised local angles"
+    ]
+  },
+  "production_global_result": {
+    "status": "FAIL_REACTION_BASIS",
+    "equilibrium_residual_kip": 2.273737e-13,
+    "published_load_sum_kip": 3159.1,
+    "published_reaction_sum_kip": 3158.9,
+    "rounding_imbalance_kip": 0.2,
+    "reaction_comparison": [
+      {
+        "support": "C1",
+        "published_kip": 440.2,
+        "production_kip": 399.7,
+        "difference_kip": -40.5,
+        "difference_percent": -9.200363471149478,
+        "status": "FAIL"
+      },
+      {
+        "support": "C2",
+        "published_kip": 620.0,
+        "production_kip": 748.1,
+        "difference_kip": 128.10000000000002,
+        "difference_percent": 20.661290322580648,
+        "status": "FAIL"
+      },
+      {
+        "support": "C3",
+        "published_kip": 680.5,
+        "production_kip": 354.8,
+        "difference_kip": -325.7,
+        "difference_percent": -47.86186627479794,
+        "status": "FAIL"
+      },
+      {
+        "support": "C4",
+        "published_kip": 918.5,
+        "production_kip": 1346.6,
+        "difference_kip": 428.0999999999999,
+        "difference_percent": 46.60860097985846,
+        "status": "FAIL"
+      },
+      {
+        "support": "C5",
+        "published_kip": 499.7,
+        "production_kip": 309.9,
+        "difference_kip": -189.8,
+        "difference_percent": -37.982789673804284,
+        "status": "FAIL"
+      }
+    ],
+    "finding": "The production ground-structure optimizer satisfies equilibrium but chooses support reactions by its truss LP objective. It does not reproduce the indeterminate continuous-beam reactions supplied by TxDOT, so its selected topology and member forces are not a like-for-like Figure 4.10 solution."
+  },
+  "published_global_statics": {
+    "status": "PASS",
+    "joint_spot_checks": [
+      {
+        "node": "A",
+        "residual_kip": 0.11279427394560088,
+        "status": "PASS"
+      },
+      {
+        "node": "L",
+        "residual_kip": 0.33055021917006494,
+        "status": "PASS"
+      },
+      {
+        "node": "P",
+        "residual_kip": 0.8710460041670112,
+        "status": "PASS"
+      }
+    ],
+    "note": "Residual tolerance is 1.0 kip because Figure 4.10 dimensions and forces are rounded."
+  },
+  "tie_checks": [
+    {
+      "check": "Top longitudinal tie P-Q",
+      "published_demand": 550.3,
+      "calculated": 10.19074074074074,
+      "published": 10.19,
+      "units": "in^2 required",
+      "difference_percent": 0.007269290880669916,
+      "status": "PASS"
+    },
+    {
+      "check": "Bottom longitudinal tie FF-GG",
+      "published_demand": 300.7,
+      "calculated": 5.568518518518518,
+      "published": 5.57,
+      "units": "in^2 required",
+      "difference_percent": -0.026597513132536894,
+      "status": "PASS"
+    },
+    {
+      "check": "Vertical tie L-FF",
+      "published_demand": 238.0,
+      "calculated": 4.407407407407407,
+      "published": 4.41,
+      "units": "in^2 required",
+      "difference_percent": -0.05878894767783904,
+      "status": "PASS"
+    },
+    {
+      "check": "Vertical tie L-FF, 2-leg #5",
+      "published_demand": 238.0,
+      "calculated": 8.046453781512605,
+      "published": 8.0,
+      "units": "in spacing",
+      "difference_percent": 0.5806722689075672,
+      "status": "PASS"
+    },
+    {
+      "check": "Vertical tie P-II",
+      "published_demand": 217.5,
+      "calculated": 4.027777777777778,
+      "published": 4.03,
+      "units": "in^2 required",
+      "difference_percent": -0.05514199062587021,
+      "status": "PASS"
+    },
+    {
+      "check": "Vertical tie P-II, 4-leg #5",
+      "published_demand": 217.5,
+      "calculated": 7.111613793103448,
+      "published": 7.1,
+      "units": "in spacing",
+      "difference_percent": 0.1635745507527936,
+      "status": "PASS"
+    }
+  ],
+  "non_column_node_checks": [
+    {
+      "check": "Critical girder bearing (non-column Node P)",
+      "calculated_kip": 305.76,
+      "published_kip": 306.0,
+      "difference_percent": -0.07843137254902258,
+      "status": "PASS"
+    }
+  ],
+  "strut_checks": {
+    "status": "DEFERRED_LOCAL_MODEL_DEPENDENT",
+    "note": "Chapter 4 reports strut strength through nodal strut-interface checks. The reported checks at P, R, and V use strut angles revised after subdividing a column-support node, so none remain like-for-like under the agreed global-only boundary."
+  },
+  "production_change": "NONE"
+}

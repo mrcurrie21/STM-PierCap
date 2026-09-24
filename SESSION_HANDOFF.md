@@ -452,3 +452,38 @@ the Markdown summary, and displayed in a compact Document Control grid near the
 front of the HTML report. The version/fingerprint unit test, reporting tests,
 Ruff, and fresh-kernel notebook execution pass. Current demonstration revision
 is 0; its IDs are regenerated whenever an input or calculated result changes.
+
+## Adopted support-reaction workflow (2026-09-24)
+
+The TxDOT 5-5253-01-1 Chapter 4 validation demonstrated that the existing STM
+ground-structure objective can satisfy equilibrium while selecting a materially
+different reaction distribution for an indeterminate five-support cap. TxDOT's
+worked example instead obtains column reactions from a continuous-beam analysis
+and imposes both the applied loads and those reactions on the global STM. The
+current TxDOT Bridge Design Manual also permits trestle-pile and multi-column
+caps to be analyzed as continuous beams on knife-edge supports at pile/column
+centerlines in lieu of a more detailed analysis.
+
+The adopted normal workflow is therefore:
+
+1. Analyze the cap as a continuous beam at the pile/column centerlines, using
+   one pin and the remaining supports as vertical rollers.
+2. Calculate a reaction set for each supplied load combination.
+3. Apply the original loads and calculated reactions as fixed boundary forces
+   to the STM.
+4. Optimize/solve only the internal STM load path; do not allow the STM
+   objective to redistribute reactions.
+5. Verify force and moment equilibrium and report the reaction model and its
+   assumptions.
+
+The pin/roller model is a simplified vertical-load analysis that neglects
+support settlement and finite pile/column/soil-spring flexibility. Retain a
+prescribed-reaction override for reactions obtained from a reviewed frame,
+foundation, or soil-structure model. Flag possible refinement when supports
+have materially different stiffnesses or lengths, columns are unusually wide,
+soil conditions vary, scour or differential settlement matters, uplift is
+possible, connection fixity is important, or lateral/seismic actions govern.
+
+This entry records an approved implementation direction, not completed code.
+Do not mark the related TODO items complete until the beam solver, STM boundary
+transfer, reporting, and TxDOT reaction benchmark are implemented and tested.

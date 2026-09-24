@@ -119,6 +119,10 @@ is justified.
 - [x] Check bearing, back, and strut-interface faces with explicit factors.
 - [x] Construct compatible interior interfaces using continuous reinforcement
       and midpoint tributaries as the conservative default.
+- [ ] Support split/double nodes at column bearing regions. Permit a global STM
+      column reaction to be expanded into a reviewed local STM with multiple
+      column-face nodes, revised local strut angles, and equilibrium-preserving
+      force transfer between the global and local models.
 
 ### Strut geometry and design
 
@@ -161,10 +165,25 @@ not delay the simple production workflow.
 
 ### Load and boundary flexibility
 
+- [ ] Make a continuous cap-beam reaction analysis the normal vertical-load
+      workflow. Model the cap continuously over support centerlines with one
+      pin and all remaining supports as vertical rollers; calculate reactions
+      separately for every load combination and apply the loads and reactions
+      as prescribed STM boundary forces.
+- [ ] Verify the continuous-beam reaction implementation with hand-solvable
+      determinate and indeterminate beams, the TxDOT 5-5253-01-1 Figure 4.10
+      five-column reactions, force/moment equilibrium, and sensitivity to cap
+      EI. The STM topology objective must not redistribute the reactions.
+- [ ] Report the reaction-analysis assumptions and provenance: support model,
+      support centerlines, cap EI basis, neglected settlement/foundation
+      flexibility, and the load combination associated with each reaction set.
 - [ ] Provide optional named AREMA load-combination templates and metadata.
       Users may instead supply already factored project load cases.
-- [ ] Support prescribed pile reactions imported from a compatible foundation
-      or frame model.
+- [ ] Support prescribed pile/column reactions imported from a compatible
+      foundation, continuous-beam, or frame model. This is required for the
+      TxDOT 5-5253-01-1 Figure 4.10 validation because the STM topology
+      objective must not select the reactions of the indeterminate five-support
+      cap.
 - [ ] Accept general lateral actions through existing force inputs without
       requiring the tool to generate braking, nosing, wind, or train loads.
 - [ ] Add arbitrary interface orientation and local-to-global action transforms
@@ -192,6 +211,10 @@ not delay the simple production workflow.
 - [x] Benchmark published tie steel, nodal geometry, anchorage, nodal-face
       capacities, strut resistance, reinforced-strut steel, intermediate values,
       and final demand/capacity ratios from FHWA Example 1.
+- [ ] Validate the production notebook against the global STM in Chapter 4 of
+      TxDOT Report 5-5253-01-1 using the Figure 4.10 loads, support reactions,
+      geometry, and member forces. Exclude the split-node local column-bearing
+      STMs until the double-node capability above is implemented.
 - [ ] Reproduce an INDOT STEP pier-cap example if it adds a materially different
       verification case.
 - [ ] Compare with published pile-cap experiments where applicable.
@@ -203,8 +226,10 @@ must not appear as unresolved failures of an otherwise complete 2D STM analysis.
 
 - Generate railroad loads from train configuration or determine which project
   load combinations are legally applicable.
-- Perform global frame analysis or soil-structure interaction to determine pile
-  reactions. The tool may accept reactions supplied by those analyses.
+- Perform refined global frame, support-settlement, or soil-structure interaction
+  analysis. The normal tool may calculate reactions using the documented
+  continuous-beam pin/roller idealization or accept reactions supplied by a
+  refined analysis.
 - Design bearings, piles, shafts, footings, or their reinforcement.
 - Produce reinforcing plans, shop drawings, fabrication schedules, or bar lists.
 - Determine final three-dimensional bar positions or detect every physical bar
