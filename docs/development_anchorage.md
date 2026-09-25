@@ -15,7 +15,9 @@ Eq. 2-8.1 using US customary units. The implementation applies the 12-inch
 minimum and exposes the top-bar, lightweight-concrete, reinforcement-confinement,
 excess-reinforcement, and epoxy-coating factors separately for review. The
 combined top-bar and epoxy factor is capped at 1.7. The optional excess-steel
-reduction is off by default for STM ties.
+reduction is an explicit user-facing detailing input and is off by default for
+STM ties. When enabled, it is applied consistently to straight and standard-hook
+development subject to the applicable minimum length.
 
 ## Implemented geometry
 
@@ -46,9 +48,9 @@ the 9.56- and 18.56-inch available lengths pass. The bottom 5-#5 layer requires
 
 The production notebook now supplies the calculated AREMA 2.14 straight-bar
 length to both ends of each common longitudinal layer. Its current assumptions
-are normal-weight concrete, uncoated reinforcement, credit for the selected
-transverse crack-control grid, and no excess-steel reduction. Each end therefore
-reports `OK` or `NG`. The anchorage type remains recorded so future hooked,
+are normal-weight concrete, uncoated reinforcement, and credit for the selected
+transverse crack-control grid. The calculation reports whether the user enabled
+the excess-steel reduction. Each end therefore reports `OK` or `NG`. The anchorage type remains recorded so future hooked,
 headed, or project-approved mechanical alternatives can be audited.
 
 AREMA Sections 2.17 and 2.4 support the standard-hook calculation and detailing

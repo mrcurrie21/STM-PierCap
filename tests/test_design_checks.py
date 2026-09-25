@@ -31,6 +31,7 @@ from stm_solver.design_checks import (
     classify_strut_shapes,
     construct_continuous_tie_nodal_zone,
     construct_external_nodal_zone,
+    construct_memberwise_external_nodal_zones,
     construct_single_strut_external_nodal_zone,
     construct_subdivided_external_nodal_zone,
     design_orthogonal_crack_control_grid,
@@ -188,6 +189,20 @@ class TestCrackControlGrid:
         assert {item.direction for item in grid} == {"vertical", "horizontal"}
         assert all(item.provided_ratio == pytest.approx(0.62 / (42.0 * 4.5)) for item in grid)
         assert all(item.status == "OK" for item in grid)
+
+    def test_derives_provided_area_from_bar_size_and_legs(self):
+        grid = check_provided_crack_control_grid(
+            42.0, 27.0,
+            {
+                "vertical": {"bar_size": 5, "legs": 4, "spacing": 6.0},
+                "horizontal": {"bar_size": 5, "legs": 2, "spacing": 6.0},
+            },
+        )
+        assert [item.steel_area_per_spacing for item in grid] == pytest.approx(
+            [1.24, 0.62]
+        )
+        assert [item.bar_size for item in grid] == [5, 5]
+        assert [item.legs for item in grid] == [4, 2]
 
     def test_arema_ratio_and_spacing_limits(self):
         vertical, horizontal = design_orthogonal_crack_control_grid(
@@ -728,6 +743,41 @@ class TestExternalNodalZoneGeometry:
         with pytest.raises(ValueError, match="explicit reviewed plan"):
             construct_single_strut_external_nodal_zone(
                 face, multi_model, np.array([-50.0, -50.0]), 4.0
+            )
+
+    def test_memberwise_external_node_sorts_and_subdivides_struts(self):
+        model = TrussModel(
+            nodes=np.array([[0, 0], [6, 8], [-6, 8]], dtype=float),
+            members=np.array([[0, 1], [0, 2]], dtype=int),
+            member_types=['strut', 'strut'],
+            support_node_ids={0: 0}, load_node_ids={},
+        )
+        face = ExternalFace(
+            'pile_head', 0, 0, (0.0, 0.0), (-6.0, 0.0), (6.0, 0.0), 12.0
+        )
+
+        geometries = construct_memberwise_external_nodal_zones(
+            face, model, np.array([-50.0, -100.0]), 4.0, label='pile P1'
+        )
+
+        assert [item.member_ids for item in geometries] == [(1,), (0,)]
+        assert [item.tributary.width for item in geometries] == pytest.approx([8, 4])
+        assert [item.label for item in geometries] == [
+            'pile P1 / strut 1', 'pile P1 / strut 0',
+        ]
+        assert geometries[0].tributary.start == pytest.approx((-6.0, 0.0))
+        assert geometries[1].tributary.end == pytest.approx((6.0, 0.0))
+
+    def test_memberwise_external_node_requires_compression_member(self):
+        model = TrussModel(
+            nodes=np.array([[0, 0], [0, 10]], dtype=float),
+            members=np.array([[0, 1]], dtype=int),
+            member_types=['tie'], support_node_ids={}, load_node_ids={},
+        )
+        face = ExternalFace('pile_head', 0, 0, (0, 0), (-3, 0), (3, 0), 6)
+        with pytest.raises(ValueError, match="at least one compression"):
+            construct_memberwise_external_nodal_zones(
+                face, model, np.array([100.0]), 4.0
             )
 
     def test_reviewed_plan_rejects_overlapping_member_groups(self):

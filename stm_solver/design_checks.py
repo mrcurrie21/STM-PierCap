@@ -704,13 +704,13 @@ def check_provided_crack_control_grid(
     member_width, effective_depth, provided, *, required_ratio=0.003,
     absolute_spacing_limit=12.0,
 ):
-    """Check user-provided steel area and spacing in both grid directions.
+    """Check user-provided crack-control reinforcement in both directions.
 
-    ``steel_area_per_spacing`` is the total bar area crossing the section at
-    each spacing interval; for example, two No. 5 legs provide 0.62 in^2.
-    Optional ``bar_size`` and ``legs`` values preserve enough physical detail
-    for downstream cage-spacing checks. When supplied, their calculated area
-    must agree with ``steel_area_per_spacing``.
+    The preferred physical input is ``bar_size``, ``legs``, and ``spacing``;
+    steel area is derived from the standard bar table. The legacy
+    ``steel_area_per_spacing`` form remains accepted for force-only benchmark
+    comparisons, but it does not provide a diameter for cage-spacing checks.
+    When both forms are supplied, their areas must agree.
     """
     member_width = float(member_width)
     effective_depth = float(effective_depth)
@@ -726,14 +726,12 @@ def check_provided_crack_control_grid(
     results = []
     for direction in ("vertical", "horizontal"):
         values = provided[direction]
-        steel_area = float(values["steel_area_per_spacing"])
         spacing = float(values["spacing"])
         bar_size = values.get("bar_size")
         legs = values.get("legs")
-        if any(not np.isfinite(value) or value <= 0.0 for value in (
-            steel_area, spacing,
-        )):
-            raise ValueError("Provided crack-control area and spacing must be positive")
+        supplied_area = values.get("steel_area_per_spacing")
+        if not np.isfinite(spacing) or spacing <= 0.0:
+            raise ValueError("Provided crack-control spacing must be positive")
         if (bar_size is None) != (legs is None):
             raise ValueError("Provided crack-control bar_size and legs must be supplied together")
         if bar_size is not None:
@@ -741,11 +739,21 @@ def check_provided_crack_control_grid(
             legs = int(legs)
             if bar_size not in REBAR_TABLE or legs <= 0:
                 raise ValueError("Unknown crack-control bar size or invalid leg count")
-            described_area = legs * REBAR_TABLE[bar_size]["Ab"]
-            if not np.isclose(described_area, steel_area, atol=1e-9, rtol=0.0):
+            steel_area = legs * REBAR_TABLE[bar_size]["Ab"]
+            if supplied_area is not None and not np.isclose(
+                steel_area, float(supplied_area), atol=1e-9, rtol=0.0,
+            ):
                 raise ValueError(
                     "Provided crack-control bar size and legs do not match steel area"
                 )
+        elif supplied_area is not None:
+            steel_area = float(supplied_area)
+        else:
+            raise ValueError(
+                "Provided crack control requires bar_size, legs, and spacing"
+            )
+        if not np.isfinite(steel_area) or steel_area <= 0.0:
+            raise ValueError("Provided crack-control area must be positive")
         provided_ratio = steel_area / (member_width * spacing)
         results.append(CrackControlGrid(
             direction=direction, required_ratio=required_ratio,
@@ -1409,6 +1417,88 @@ def construct_single_strut_external_nodal_zone(
     return construct_subdivided_external_nodal_zone(
         face, truss_model, member_forces, plan
     )[0]
+
+
+def construct_memberwise_external_nodal_zones(
+    face, truss_model, member_forces, back_face_depth, *, label=None,
+    force_tolerance=1e-9,
+):
+    """Propose one force-proportioned tributary for each external strut.
+
+    Compression members are ordered geometrically from ``face.start`` to
+    ``face.end``. Each member remains an individual design strut, and the
+    finite external face is divided in proportion to the members' force
+    components normal to that face. Callers must explicitly opt in because the
+    resulting subdivision is a proposed local nodal model requiring review.
+    """
+    forces = np.asarray(member_forces, dtype=float)
+    if forces.shape != (len(truss_model.members),):
+        raise ValueError("member_forces must align with truss_model.members")
+    depth = float(back_face_depth)
+    if not np.isfinite(depth) or depth <= 0.0:
+        raise ValueError("back_face_depth must be a positive finite value")
+    if not np.isfinite(force_tolerance) or force_tolerance < 0.0:
+        raise ValueError("force_tolerance must be nonnegative and finite")
+
+    nodal_node_id = (
+        face.node_id if getattr(face, "nodal_node_id", None) is None
+        else face.nodal_node_id
+    )
+    face_start = np.asarray(face.start, dtype=float)
+    face_direction = np.asarray(face.end, dtype=float) - face_start
+    face_length = np.linalg.norm(face_direction)
+    if face_length <= 1e-10:
+        raise ValueError("external face has zero length")
+    face_direction /= face_length
+
+    compression_members = []
+    for member_id, (ni, nj) in enumerate(truss_model.members):
+        if ni != nodal_node_id and nj != nodal_node_id:
+            continue
+        other = nj if ni == nodal_node_id else ni
+        if nodal_node_id != face.node_id and other == face.node_id:
+            continue
+        if forces[member_id] >= -force_tolerance:
+            continue
+        remote_point = np.asarray(truss_model.nodes[other], dtype=float)
+        direction = remote_point - np.asarray(
+            truss_model.nodes[nodal_node_id], dtype=float
+        )
+        length = np.linalg.norm(direction)
+        if length <= 1e-10:
+            raise ValueError("A strut connected to the external face has zero length")
+        direction /= length
+        if abs(float(np.dot(direction, face_direction))) >= 1.0 - 1e-8:
+            continue
+        if nodal_node_id != face.node_id:
+            remote_point = remote_point + (
+                np.asarray(face.center, dtype=float)
+                - np.asarray(truss_model.nodes[nodal_node_id], dtype=float)
+            )
+        order_coordinate = float(np.dot(remote_point - face_start, face_direction))
+        compression_members.append((order_coordinate, member_id, remote_point))
+
+    if not compression_members:
+        raise ValueError(
+            "External-node construction requires at least one compression member"
+        )
+    compression_members.sort(key=lambda item: (item[0], item[1]))
+    group_prefix = label or f"{face.kind}_{face.source_index}"
+    zone_type = classify_nodal_zone(nodal_node_id, truss_model, forces)
+    plan = ExternalNodalZonePlan(
+        node_id=int(nodal_node_id),
+        back_face_depth=depth,
+        groups=tuple(
+            NodalZoneGroupDefinition(
+                f"{group_prefix} / strut {member_id}",
+                (int(member_id),), tuple(remote_point), zone_type,
+            )
+            for _, member_id, remote_point in compression_members
+        ),
+    )
+    return construct_subdivided_external_nodal_zone(
+        face, truss_model, forces, plan
+    )
 
 
 def construct_continuous_tie_nodal_zone(

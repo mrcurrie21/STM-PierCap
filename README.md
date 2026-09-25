@@ -110,6 +110,14 @@ common reinforcement schedule, checks external and conservative interior nodal
 faces, and creates normalized result tables plus a concise calculation summary.
 Its example loads are demonstrations only and are not AREMA load combinations.
 
+External bearing or support nodes with several incoming compression struts can
+opt in to memberwise subdivision with
+`detailing['allow_automatic_external_node_subdivision'] = True`. The notebook
+orders the struts across the physical face, assigns force-proportioned
+tributaries, and reports every resulting nodal face for engineering review.
+When the option is absent or false, a multi-strut external node stops the run
+and requires an explicit reviewed subdivision plan.
+
 Normal project inputs are kept in one cell. Consequential assumptions such as
 clear cover, aggregate size, coating, concrete weight, preferred bar sizes, and
 standard-hook permission remain visible with editable defaults. Derived
@@ -117,6 +125,16 @@ reinforcement and nodal quantities are automatic. AREMA 2025 nodal factors from
 Article 2.42.3d and Table 8-2-9 are implemented. Article 2.30.2b supplies the
 implemented STM resistance factors: 0.70 for compression and 0.90 for
 reinforced-concrete tension.
+
+User-provided crack-control reinforcement is entered by bar size, number of
+legs crossing the section at each interval, and spacing. The notebook derives
+the steel area and uses the stated bar diameter in the cage-spacing review; it
+does not infer a physical arrangement from area alone.
+
+The user-facing detailing inputs also include
+`credit_excess_reinforcement_for_development`. It defaults to `False`; when
+explicitly enabled, the required-to-provided steel ratio is applied to straight
+and standard-hook development calculations subject to their minimum lengths.
 
 New pier-cap work uses validated objects from `stm_solver.pier_cap` as the
 canonical input API and normalized records/DataFrames for review and export.
@@ -171,6 +189,18 @@ Edit the normal project-input cell to define cap geometry, materials, bearings,
 foundation supports, load components, combinations, and visible detailing
 assumptions. Run all cells to select the load path, perform the checks, and
 generate the calculation outputs.
+
+To reproducibly execute a validation notebook and export HTML beside it, run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\run_validation_notebook.ps1 `
+  validation\fhwa_example_3\v1.0.0\fhwa_example_3_production_validation.ipynb
+```
+
+The runner keeps Jupyter, IPython, and Matplotlib runtime files in a unique
+system-temporary directory and removes that directory when the run finishes.
+The executed notebook and its HTML output remain together in the validation
+folder.
 
 ### Running Tests
 

@@ -151,8 +151,15 @@ is justified.
       crack-control steel, aggregate spacing, layer spacing, hooks, and anchorage.
 - [x] Calculate available end anchorage from extended-strut/tie intersections.
 - [x] Implement AREMA 2.14 straight tension development.
-- [x] Implement standard 90/180-degree hook development, geometry, and fit;
-      automatically use a standard hook when straight development fails.
+- [x] Implement standard 90-degree hook development, geometry, and fit;
+      automatically use a standard 90-degree hook when straight development
+      fails and the complete hook fits.
+- [ ] Add standard 180-degree hook as an explicit anchorage alternative. Apply
+      the governing AREMA development factors and minimum length; model bend
+      diameter, return-tail length, longitudinal and transverse projections,
+      cover, spacing, and confinement; compare its complete fit with the
+      straight and 90-degree alternatives without assuming that a 180-degree
+      hook reduces the required longitudinal development distance.
 - [x] Exclude headed/mechanical anchors at the user's direction.
 - [x] Treat STM longitudinal ties as continuous and unspliced under AREMA
       2.22.3e; retain Class A/B lap calculations for non-tie applications.

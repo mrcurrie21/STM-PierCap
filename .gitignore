@@ -8,3 +8,5 @@ build/
 output/
 tmp/
 pytest-cache-files-*/
+/reference/
+/references/
